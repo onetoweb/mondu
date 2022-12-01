@@ -1,0 +1,31 @@
+{
+    "name": "onetoweb/mondu",
+    "description": "Mondu API Client",
+    "keywords": [
+        "api",
+        "php",
+        "mondu"
+    ],
+    "type": "library",
+    "homepage": "https://github.com/onetoweb/mondu",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jonathan van 't Ende",
+            "email": "jvantende@onetoweb.nl"
+        }
+    ],
+    "require": {
+        "php": ">=7.1.0",
+        "guzzlehttp/guzzle" : "^6.0 || ^7.0",
+        "symfony/http-foundation": "^5.4"
+    },
+    "require-dev": {
+        "symfony/error-handler": "^5.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Onetoweb\\Mondu\\": "src/"
+        }
+    }
+}
