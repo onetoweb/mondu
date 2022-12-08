@@ -1,3 +1,4 @@
+.. _top:
 .. title:: Orders
 
 `Back to index <index.rst>`_
@@ -102,3 +103,6 @@ Update Order External Info
     $result = $client->post("/orders/$orderUuid/update_external_info", [
         'external_reference_id' => 'my order 2',
     ]);
+
+
+`Back to top <#top>`_

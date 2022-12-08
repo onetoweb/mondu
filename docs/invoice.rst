@@ -1,3 +1,4 @@
+.. _top:
 .. title:: Invoices
 
 `Back to index <index.rst>`_
@@ -134,3 +135,6 @@ Create Credit Note
             'external_reference_id' => 'external reference id'
         ]]
     ]);
+
+
+`Back to top <#top>`_
