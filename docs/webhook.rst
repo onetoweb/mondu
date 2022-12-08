@@ -16,7 +16,7 @@ Get Webhook Key
 
 .. code-block:: php
     
-    $result = $client->get('/webhooks/keys');
+    $result = $client->webhook->key();
 
 
 List Webhooks
@@ -24,7 +24,7 @@ List Webhooks
 
 .. code-block:: php
     
-    $result = $client->get('/webhooks', [
+    $result = $client->webhook->list([
         'page' => 1,
         'per_page' => 20,
     ]);
@@ -35,7 +35,7 @@ Create Webhook
 
 .. code-block:: php
     
-    $result = $client->post('/webhooks', [
+    $result = $client->webhook->create([
         'topic' => 'order',
         'address' => 'https://example.com/webhook.php',
     ]);
@@ -47,7 +47,7 @@ Delete Webhook
 .. code-block:: php
     
     $webhookUuid = 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx';
-    $client->delete("/webhooks/$webhookUuid");
+    $client->webhook->delete($webhookUuid);
 
 
 Replay Webhook
@@ -56,7 +56,7 @@ Replay Webhook
 .. code-block:: php
     
     $resourceUuid = 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx';
-    $result = $client->put("/webhooks/replay/$resourceUuid", [
+    $result = $client->webhook->replay($resourceUuid, [
         'topic' => 'order/pending'
     ]);
 

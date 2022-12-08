@@ -4,7 +4,7 @@ namespace Onetoweb\Mondu;
 
 use GuzzleHttp\RequestOptions;
 use GuzzleHttp\Client as GuzzleCLient;
-// use Onetoweb\Mondu\Token;
+use Onetoweb\Mondu\Endpoint;
 use DateTime;
 
 /**
@@ -47,6 +47,19 @@ class Client
         $this->sandbox = $sandbox;
         $this->version = $version;
         $this->webhookSecret = $webhookSecret;
+        
+        // initialize endpoints
+        $this->initializeEndpoints();
+    }
+    
+    /**
+     * @return void
+     */
+    private function initializeEndpoints(): void
+    {
+        $this->order = new Endpoint\Order($this);
+        $this->invoice = new Endpoint\Invoice($this);
+        $this->webhook = new Endpoint\Webhook($this);
     }
     
     /**

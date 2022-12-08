@@ -16,19 +16,19 @@ List Orders
 
 .. code-block:: php
     
-    $result = $client->get('/orders', [
+    $result = $client->order->list([
         'page' => 1,
         'per_page' => 20
     ]);
 
 
-Get Orders
-``````````
+Get Order
+`````````
 
 .. code-block:: php
     
     $orderUuid = 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx';
-    $result = $client->get("/orders/$orderUuid");
+    $result = $client->order->get($orderUuid);
 
 
 Create a Order
@@ -36,7 +36,7 @@ Create a Order
 
 .. code-block:: php
     
-    $result = $client->post('/orders', [
+    $result = $client->order->create([
         'currency' => 'EUR',
         'external_reference_id' => 'my-order-1',
         'billing_address' => [
@@ -78,7 +78,7 @@ Adjust a Order
 .. code-block:: php
     
     $orderUuid = 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx';
-    $result = $client->post("/orders/$orderUuid/adjust", [
+    $result = $client->order->adjust($orderUuid, [
         'state' => 'confirmed',
     ]);
 
@@ -89,7 +89,7 @@ Cancel a Order
 .. code-block:: php
     
     $orderUuid = 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx';
-    $result = $client->post("/orders/$orderUuid/cancel", [
+    $result = $client->order->cancel($orderUuid, [
         'cancelation_reason' => 'cancelation'
     ]);
 
@@ -100,7 +100,7 @@ Update Order External Info
 .. code-block:: php
     
     $orderUuid = 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx';
-    $result = $client->post("/orders/$orderUuid/update_external_info", [
+    $result = $client->order->updateExternal($orderUuid, [
         'external_reference_id' => 'my order 2',
     ]);
 
