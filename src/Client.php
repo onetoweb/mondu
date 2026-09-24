@@ -5,6 +5,7 @@ namespace Onetoweb\Mondu;
 use GuzzleHttp\RequestOptions;
 use GuzzleHttp\Client as GuzzleCLient;
 use Onetoweb\Mondu\Endpoint;
+use Onetoweb\Mondu\Config\Method;
 use DateTime;
 
 /**
@@ -15,25 +16,7 @@ class Client
     /**
      * Base Url.
      */
-    const BASE_URL = 'https://api.%smondu.ai/api/v%d';
-    
-    /**
-     * Methods.
-     */
-    const METHOD_GET = 'GET';
-    const METHOD_POST = 'POST';
-    const METHOD_DELETE = 'DELETE';
-    const METHOD_PUT = 'PUT';
-    
-    /**
-     * @var bool
-     */
-    private $sandbox;
-    
-    /**
-     * @var int
-     */
-    private $version;
+    public const BASE_URL = 'https://api.%smondu.ai/api/v%d';
     
     /**
      * @param string $apiKey
@@ -41,13 +24,14 @@ class Client
      * @param int $version = 1
      * @param string $webhookSecret
      */
-    public function __construct(string $apiKey, bool $sandbox = false, int $version = 1, string $webhookSecret = '')
-    {
-        $this->apiKey = $apiKey;
-        $this->sandbox = $sandbox;
-        $this->version = $version;
-        $this->webhookSecret = $webhookSecret;
+    public function __construct(
         
+        #[\SensitiveParameter]
+        private string $apiKey,
+        private bool $sandbox = false,
+        private int $version = 1,
+        private string $webhookSecret = ''
+    ) {
         // initialize endpoints
         $this->initializeEndpoints();
     }
@@ -78,7 +62,7 @@ class Client
      */
     public function get(string $endpoint, array $query = []): ?array
     {
-        return $this->request(self::METHOD_GET, $endpoint, $query);
+        return $this->request(Method::GET, $endpoint, $query);
     }
     
     /**
@@ -89,7 +73,7 @@ class Client
      */
     public function post(string $endpoint, array $data = []): ?array
     {
-        return $this->request(self::METHOD_POST, $endpoint, [], $data);
+        return $this->request(Method::POST, $endpoint, [], $data);
     }
     
     /**
@@ -99,7 +83,7 @@ class Client
      */
     public function delete(string $endpoint): ?array
     {
-        return $this->request(self::METHOD_DELETE, $endpoint);
+        return $this->request(Method::DELETE, $endpoint);
     }
     
     /**
@@ -110,18 +94,18 @@ class Client
      */
     public function put(string $endpoint, array $data = []): ?array
     {
-        return $this->request(self::METHOD_PUT, $endpoint, [], $data);
+        return $this->request(Method::PUT, $endpoint, [], $data);
     }
     
     /**
-     * @param string $method
+     * @param Method $method
      * @param string $endpoint
      * @param array $query = []
      * @param array $data = []
      * 
      * @return array|null
      */
-    public function request(string $method, string $endpoint, array $query = [], array $data = []): ?array
+    public function request(Method $method, string $endpoint, array $query = [], array $data = []): ?array
     {
         // build options
         $options = [
@@ -143,7 +127,7 @@ class Client
         $url = $this->getBaseUrl() . $endpoint;
         
         // make request
-        $response = (new GuzzleCLient())->request($method, $url, $options);
+        $response = (new GuzzleCLient())->request($method->value, $url, $options);
         
         // get contents
         $contents = $response->getBody()->getContents();

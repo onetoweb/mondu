@@ -55,5 +55,4 @@ class Webhook extends AbstractEndpoint
     {
         return $this->client->put("/webhooks/replay/$resourceUuid", $data);
     }
-    
 }

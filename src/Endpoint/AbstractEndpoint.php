@@ -10,15 +10,11 @@ use Onetoweb\Mondu\Client;
 class AbstractEndpoint
 {
     /**
-     * @var Client
-     */
-    protected $client;
-    
-    /**
      * @param Client $client
      */
-    public function __construct(Client $client)
-    {
-        $this->client = $client;
+    public function __construct(
+        protected Client $client
+    ) {
+        
     }
 }

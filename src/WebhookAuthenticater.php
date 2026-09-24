@@ -20,22 +20,15 @@ class WebhookAuthenticater
     ];
     
     /**
-     * @var string
-     */
-    private $secret;
-    
-    /**
-     * @var string
-     */
-    private $sandbox;
-    
-    /**
      * @param string $secret
      */
-    public function __construct(string $secret, bool $sandbox = false)
-    {
-        $this->secret = $secret;
-        $this->sandbox = $sandbox;
+    public function __construct(
+        
+        #[\SensitiveParameter]
+        private string $secret,
+        private bool $sandbox = false
+    ) {
+        
     }
     
     /**
